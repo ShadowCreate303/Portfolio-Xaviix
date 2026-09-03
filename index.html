@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Xaviix</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            border: 2px solid #00ffcc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 24px;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+
+        .terminal-box {
+            border: 1px solid #00ffcc;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #050505;
+            min-height: 120px;
+        }
+
+        .terminal-box p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .profile-img {
+            max-width: 150px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #00ffcc;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 15px; }
+            .logo { font-size: 28px; }
+            .card { padding: 15px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .logo { font-size: 22px; }
+            .card h2 { font-size: 18px; }
+            .terminal-box { padding: 10px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">&lt;/XAVIIX&gt;</div>
+
+    <div class="card">
+        <h2>xaviix.exe</h2>
+        <div class="terminal-box" id="terminal-profile"></div>
+        <img src="images/logo.jpg" alt="Logo Eclipse Studio" class="profile-img">
+    </div>
+
+    <div class="card">
+        <h2>Compétences</h2>
+        <div class="terminal-box" id="terminal-skills"></div>
+    </div>
+
+    <script>
+        const profileLines = [
+            "> Bienvenue sur le portfolio de XAVIIX.",
+            "> Chargement du profil...",
+            "> Pseudonyme : Xaviix",
+            "> Spécialités : Graphiste, Directeur de Eclipse Studio",
+            "> Objectif : Créer des visuels uniques"
+        ];
+
+        const skillsLines = [
+            "> Design Graphique",
+            "> Graphisme pour jeux vidéos 2D",
+            "> HTML / CSS / JS"
+        ];
+
+        function typeWriter(lines, elementId, speed = 30) {
+            const container = document.getElementById(elementId);
+            let lineIndex = 0;
+            let charIndex = 0;
+            let currentP = document.createElement('p');
+            container.appendChild(currentP);
+
+            function type() {
+                if (lineIndex < lines.length) {
+                    if (charIndex < lines[lineIndex].length) {
+                        currentP.textContent += lines[lineIndex].charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, speed);
+                    } else {
+                        lineIndex++;
+                        charIndex = 0;
+                        if (lineIndex < lines.length) {
+                            currentP = document.createElement('p');
+                            container.appendChild(currentP);
+                            setTimeout(type, speed * 3);
+                        }
+                    }
+                }
+            }
+            type();
+        }
+
+        window.onload = () => {
+            typeWriter(profileLines, 'terminal-profile', 25);
+            setTimeout(() => {
+                typeWriter(skillsLines, 'terminal-skills', 25);
+            }, profileLines.length * 200);
+        };
+    </script>
+
+</body>
+</html>
